@@ -159,13 +159,16 @@ export default class LinkedList {
   }
 
   removeAt(index) {
-    remove(this.root);
+    if (index === 0) {
+      this.root.next = root.next;
+    } else {
+      remove(this.root);
+    }
+
     //--------
     function remove(targetRoot, currentIndex = 0, prevRoot) {
       if (targetRoot === null) return;
-      if (index === 0) {
-        this.root = targetRoot.next;
-      } else if (currentIndex === index) {
+      if (currentIndex === index) {
         prevRoot.next = targetRoot.next;
       }
       remove(targetRoot.next, currentIndex + 1, targetRoot);

@@ -1,4 +1,4 @@
-import { LinkedList } from "./linkedList.js";
+import LinkedList from "./LinkedList.js";
 
 const L = new LinkedList();
 
@@ -27,7 +27,7 @@ console.log({
 console.log({ find: L.find("snake") });
 console.log({ to_string: L.toString() });
 console.log({
-  insert_eagle_at_index_2: L.insertAt("centipede", 2),
+  insert_centipede_at_index_2: L.insertAt("centipede", 2),
   new_list: L.toString(),
 });
 L.removeAt(3);
