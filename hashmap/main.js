@@ -33,3 +33,9 @@ console.log({
   "has('hat') which is colliding with 'grape', should return true":
     test.has("hat"),
 });
+console.log({
+  "get('dog'), should return 'brown'": test.get("dog"),
+  "get('frog), should return 'green'": test.get("frog"),
+  "get('hat'), on a linked-list, should return 'black'": test.get("hat"),
+  "get('grape'), on a linked-list should return 'purple'": test.get("grape"),
+});

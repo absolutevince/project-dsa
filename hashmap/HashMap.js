@@ -36,8 +36,18 @@ export default class HashMap {
 
   get(key) {
     const hash = this.hash(key);
-    if (this.buckets[hash] === null) return null;
-    return this.buckets[hash].value;
+    const bucket = this.buckets[hash];
+    if (bucket === null) {
+      return null;
+    } else if (bucket instanceof LinkedList) {
+      return this.#linkedListGet(bucket, (root) => {
+        if (root.data.key === key) {
+          return root.data.value;
+        }
+      });
+    } else {
+      return bucket.value;
+    }
   }
 
   has(key) {
@@ -46,28 +56,40 @@ export default class HashMap {
     if (bucket === null) {
       return false;
     } else if (bucket instanceof LinkedList) {
-      return linkedListHas(bucket, (root) => {
+      return this.#linkedListHas(bucket, (root) => {
         if (root.data.key === key) return true;
         return false;
       });
-
-      // ------- the has() method on LinkedList class doens't operate with non-primitive data types
-      function linkedListHas(list, fn) {
-        if (!list) return;
-        let endLoop = false;
-        let root = list.root;
-        let res = false;
-        while (!endLoop || root !== null) {
-          if (fn(root)) {
-            res = true;
-            endLoop = true;
-          }
-          root = root.next;
-        }
-        return res;
-      }
     } else if (bucket.key === key) {
       return true;
     }
+  }
+
+  // Private methods that is used to operate with Linked List Objects
+  #linkedListHas(list, fn) {
+    if (!list) return;
+    let root = list.root;
+    let res = false;
+    while (root !== null) {
+      if (fn(root)) {
+        res = true;
+        break;
+      }
+      root = root.next;
+    }
+    return res;
+  }
+
+  #linkedListGet(list, fn) {
+    if (!list) return;
+    let root = list.root;
+    let res = null;
+    while (root !== null) {
+      if (res !== null) break;
+      const value = fn(root);
+      res = !value ? null : value;
+      root = root.next;
+    }
+    return res;
   }
 }
