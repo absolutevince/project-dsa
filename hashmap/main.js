@@ -1,51 +1,50 @@
 import Hashmap from "./HashMap.js";
 
 const test = new Hashmap(16);
-
-test.set("apple", "red");
-console.log({ "Add item {'apple': 'red'}": test.buckets });
-test.set("apple", "green");
+function fill(hashmap) {
+  hashmap.set("apple", "red");
+  hashmap.set("banana", "yellow");
+  hashmap.set("carrot", "orange");
+  hashmap.set("dog", "brown");
+  hashmap.set("elephant", "gray");
+  hashmap.set("frog", "green");
+  hashmap.set("grape", "purple");
+  hashmap.set("hat", "black");
+  hashmap.set("ice cream", "white");
+  hashmap.set("jacket", "blue");
+  hashmap.set("kite", "pink");
+  hashmap.set("lion", "golden");
+}
+fill(test);
+console.log({ "set()": test.buckets, "length()": test.length() });
 console.log({
-  "Replace exisiting key's value {'apple': 'red'}":
-    test.buckets[test.hash("apple")],
+  "get('frog')": test.get("frog"),
+  "has('diamond')": test.has("diamond"),
+  "has('hat')": test.has("hat"),
 });
-test.set("carrot", "orange");
-test.set("dog", "brown");
-test.set("elephant", "gray");
-test.set("frog", "green");
-test.set("grape", "purple");
-console.log({ "add a bunch of items": test.buckets });
-
-test.set("hat", "black");
-
-const LS = test.buckets[test.hash("hat")];
+console.log({ "entries()": test.entries() });
+test.remove("ice cream");
+console.log({ "remove('ice cream')": test.entries() });
+const newMap = new Hashmap(16);
+fill(newMap);
 console.log({
-  "Handle collision using linked list": LS,
-  "linked list root.data": LS.head().value,
-  "linked list root.next.data": LS.head().next,
-  Buckets: test.buckets,
+  "new HashMap": newMap.buckets,
 });
+newMap.clear();
+console.log({ "clear(), new Hashmap": newMap.buckets });
+console.log("MAIN HASHMAP");
+console.log({ "keys()": test.keys(), "values()": test.values() });
 console.log({
-  "get the value of key 'dog', should be 'brown'": test.get("dog"),
+  "Capacity and Length before adding new entry": [test.capacity, test.length()],
 });
+test.set("leaf", "yellow-green");
+test.set("branch", "dirt-brown");
 console.log({
-  "has(frog), should be true": test.has("frog"),
-  "has('eggplant), should be false": test.has("eggplant"),
-  "has('hat') which is colliding with 'grape', should return true":
-    test.has("hat"),
+  "Capacity and Length after adding two new entry": [
+    test.capacity,
+    test.length(),
+  ],
+  "loadFactor of 0.8 reached": test.buckets,
+  "length()": test.length(),
+  "entries()": test.entries(),
 });
-console.log({
-  "get('dog'), should return 'brown'": test.get("dog"),
-  "get('frog), should return 'green'": test.get("frog"),
-  "get('hat'), on a linked-list, should return 'black'": test.get("hat"),
-  "get('grape'), on a linked-list should return 'purple'": test.get("grape"),
-});
-test.remove("dog");
-test.remove("hat");
-console.log(
-  { "remove('dog')": test.buckets },
-  {
-    "remove('hat'), collisioning item, should remove from linked-list":
-      test.buckets[test.hash("grape")].head(),
-  },
-);

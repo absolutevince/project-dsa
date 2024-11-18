@@ -46,7 +46,7 @@ export default class ObjectList {
     //-----;
     function isKeyExistFrom(root) {
       if (root === null) return false;
-      if (root.key === key) {
+      if (root.data.key === key) {
         return true;
       } else {
         return isKeyExistFrom(root.next);
