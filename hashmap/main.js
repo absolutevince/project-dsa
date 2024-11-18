@@ -17,11 +17,12 @@ test.set("grape", "purple");
 console.log({ "add a bunch of items": test.buckets });
 
 test.set("hat", "black");
+
 const LS = test.buckets[test.hash("hat")];
 console.log({
   "Handle collision using linked list": LS,
-  "linked list root.data": LS.root.data,
-  "linked list root.next.data": LS.root.next.data,
+  "linked list root.data": LS.head().value,
+  "linked list root.next.data": LS.head().next,
   Buckets: test.buckets,
 });
 console.log({
@@ -39,3 +40,12 @@ console.log({
   "get('hat'), on a linked-list, should return 'black'": test.get("hat"),
   "get('grape'), on a linked-list should return 'purple'": test.get("grape"),
 });
+test.remove("dog");
+test.remove("hat");
+console.log(
+  { "remove('dog')": test.buckets },
+  {
+    "remove('hat'), collisioning item, should remove from linked-list":
+      test.buckets[test.hash("grape")].head(),
+  },
+);
