@@ -93,7 +93,7 @@ export default class Tree {
 
   levelOrder(fn) {
     if (!fn) {
-      throw new Error("Callback function is required");
+      throw new Error("A Callback function is required");
     }
 
     const q = [this.root];
@@ -108,7 +108,7 @@ export default class Tree {
 
   levelOrderRecursive(fn) {
     if (!fn) {
-      throw new Error("Callback function is required");
+      throw new Error("A Callback function is required");
     }
 
     traverse([this.root]);
@@ -122,6 +122,109 @@ export default class Tree {
       fn(q.shift().value);
       traverse(q);
     }
+  }
+
+  inOrder(fn) {
+    if (!fn) {
+      throw new Error("A Callback function is required");
+    }
+    traverse(this.root);
+
+    //-------------
+    function traverse(root) {
+      if (root === null) return;
+      traverse(root.left);
+      fn(root.value);
+      traverse(root.right);
+    }
+  }
+
+  preOrder(fn) {
+    if (!fn) {
+      throw new Error("A Callback function is required");
+    }
+
+    traverse(this.root);
+
+    //---------
+    function traverse(root) {
+      if (root === null) return;
+      fn(root.value);
+      traverse(root.left);
+      traverse(root.right);
+    }
+  }
+
+  postOrder(fn) {
+    if (!fn) {
+      throw new Error("A Callback function is required");
+    }
+
+    traverse(this.root);
+
+    //---------
+    function traverse(root) {
+      if (root === null) return;
+      traverse(root.left);
+      traverse(root.right);
+      fn(root.value);
+    }
+  }
+
+  height(node) {
+    // find the longest path using on the given node's edges
+    // count the number of traverses it made
+    let height = -1;
+
+    h(this.root);
+    return height;
+
+    // ------------
+    function h(root) {
+      if (root === null) return -1;
+      let leftHeight = h(root.left);
+      let rightHeight = h(root.right);
+
+      let res = Math.max(leftHeight, rightHeight) + 1;
+      if (root.value === node.value) {
+        height = res;
+      }
+
+      return res;
+    }
+  }
+
+  depth(node) {
+    return d(this.root);
+
+    //-----------
+    function d(root) {
+      let distance = -1;
+      if (root === null) return -1;
+      if (
+        root.value === node.value ||
+        (distance = d(root.left) >= 0 || (distance = d(root.right >= 0)))
+      ) {
+        return distance + 1;
+      }
+
+      return distance;
+    }
+  }
+
+  isBalanced() {
+    const leftHeight = this.height(this.root.left);
+    const rightHeight = this.height(this.root.right);
+
+    if (leftHeight > rightHeight || leftHeight === rightHeight)
+      return leftHeight - rightHeight <= 1;
+    if (leftHeight < rightHeight) return rightHeight - leftHeight <= 1;
+  }
+
+  rebalance() {
+    const array = [];
+    this.inOrder((value) => array.push(value));
+    this.root = this.buildTree(array);
   }
 
   // -----------------------------------------

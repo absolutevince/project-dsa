@@ -30,4 +30,42 @@ tree.levelOrder((value) => levelOrderArr.push(value));
 console.log({ "Level-Order Traversal (iterative)": levelOrderArr });
 const levelOrderRecursiveArr = [];
 tree.levelOrderRecursive((value) => levelOrderRecursiveArr.push(value));
+console.log("Breath-first traversal");
 console.log({ "Level-Order Traversal (recursive)": levelOrderRecursiveArr });
+console.log("Depth-first traversal");
+const inOrderArr = [];
+const preOrderArr = [];
+const postOrderArr = [];
+tree.inOrder((value) => inOrderArr.push(value));
+tree.preOrder((value) => preOrderArr.push(value));
+tree.postOrder((value) => postOrderArr.push(value));
+tree.prettyPrint();
+console.log({
+  "in-order traversal": inOrderArr,
+  "pre-order traversal": preOrderArr,
+  "post-order traversal": postOrderArr,
+});
+let node = tree.find(4);
+console.log({
+  "height of node with a value of 4": tree.height(node),
+  "depth of node with a value of 4": tree.depth(node),
+});
+tree.prettyPrint();
+console.log({ "check if the tree is balanced": tree.isBalanced() });
+tree.insert(90);
+tree.insert(2);
+tree.insert(0);
+tree.insert(18);
+tree.insert(55);
+tree.insert(89);
+tree.insert(52);
+tree.prettyPrint();
+console.log({
+  "check if the tree is balanced after adding a bunch of nodes":
+    tree.isBalanced(),
+});
+tree.rebalance();
+tree.prettyPrint();
+console.log({
+  "check if the tree is balance after rebalancing": tree.isBalanced(),
+});
