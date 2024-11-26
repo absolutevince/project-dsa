@@ -1,4 +1,5 @@
-graph([3, 3]);
+graph();
+// for reference purpose only || no impact on  the main code!!
 function graph(start) {
   const validMoves = [
     [-2, -1],
