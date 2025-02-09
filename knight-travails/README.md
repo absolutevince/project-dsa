@@ -80,7 +80,7 @@ while (q.length > 0) {
 }
 ```
 
-Inside the loop, we check if the current iteration of `[nx, ny]` vertex is already in the `visted` array, if not, we then transform it into a string and attach the `path` array concatinating the `[nx, ny]` and add it to the visited array , if it is in the `visited` array we skip the item
+Inside the loop, we check if the current iteration of `[nx, ny]` vertex is already in the `visted` array, if not, we then transform it into a string and add it to the visited array and put `[x, y, path]` into the array with the current target `[nx, ny]` added to the `path` array, if it is in the `visited` array we skip the item
 
 ```js
 while (q.length > 0) {
