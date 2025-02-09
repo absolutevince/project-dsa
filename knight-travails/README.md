@@ -37,7 +37,7 @@ while (q.length > 0) {
 }
 ```
 
-> return an array of neighbors/edges (was edges the write word?)
+> return an array of neighbors/edges (was edges the right word?)
 >
 > ```js
 > function getNeighbors(pos) {
